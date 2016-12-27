@@ -37,4 +37,4 @@ class fiddler_response:
 if __name__ == '__main__':
     a= fiddler_response()
 
-    print a.get_response_list()[0]["pic"]
+    print a.get_response_list()
