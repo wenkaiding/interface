@@ -88,7 +88,7 @@ class demo:
     def get_ui_item(self,all_list):
         item=[]
 
-        for i in range(0,10):
+        for i in range(0,15):
             tmp = {}
             tmp["title"]=all_list[0][i]
             tmp["shopname"]=all_list[1][i]
@@ -105,13 +105,16 @@ class demo:
 
 
     def get_file(self):
-        f_bh = open('Response.txt', "r")
+        f_bh = open('D:\Fiddler Sessions\Response.txt', "r")
         content_bh = f_bh.read().decode("utf-16")
         lines_bh = content_bh.split('\n')
         tmp = lines_bh[4].split("data\":")
         tem = tmp[1].split("\"info\"")
         return json.loads(str(tem[0][0:tem[0].__len__() - 1]))
 
+    def clear_file(self):
+        f = open('D:\Fiddler Sessions\Response.txt', "w")
+        f.truncate()
 
     def get_response_list(self):
         item = []
@@ -137,6 +140,7 @@ class demo:
             return "input error，must be list or dict"
 
     def main(self):
+        self.clear_file()
         all_list=self.run_test()
         ui_list=self.get_ui_item(all_list)
         fid_list = self.get_response_list()
