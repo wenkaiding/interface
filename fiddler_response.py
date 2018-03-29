@@ -7,7 +7,7 @@ class fiddler_response:
         pass
 
     def get_file(self):
-        f_bh = open('Response.txt',"r")
+        f_bh = open('D:\Fiddler Sessions\Response.txt',"r")
         content_bh = f_bh.read().decode("utf-16")
         lines_bh = content_bh.split('\n')
         tmp = lines_bh[4].split("data\":")
@@ -18,7 +18,13 @@ class fiddler_response:
         item = []
         for tem in self.get_file()["product_list"]:
             item.append(tem)
-        return item
+        return self.add_icon(item)
+    def add_icon(self,list):
+        for item in list:
+            if isinstance(item,dict):
+                if item["is_tmall"]==1 or item["productstyle"] == "superfan":
+                    item["title"] = "icon "+item["title"]
+            return list
 
     def check_response(self,ui,fid):
         if isinstance(ui,list) and isinstance(fid,list):
@@ -32,9 +38,11 @@ class fiddler_response:
         else:
             return "input error，must be list or dict"
 
+    def clear_file(self):
+        f = open('D:\Fiddler Sessions\Response.txt', "w")
+        f.truncate()
 
 
 if __name__ == '__main__':
     a= fiddler_response()
-
     print a.get_response_list()

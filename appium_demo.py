@@ -120,7 +120,14 @@ class demo:
         item = []
         for tem in self.get_file()["product_list"]:
             item.append(tem)
-        return item
+        return self.add_icon(item)
+
+    def add_icon(self, list):
+        for item in list:
+            if isinstance(item, dict):
+                if item["is_tmall"] == 1 or item["productstyle"] == "superfan":
+                    item["title"] = "icon " + item["title"]
+            return list
 
 
     def check_response(self, ui, fid):
@@ -129,6 +136,7 @@ class demo:
             print fid
             for k in range(0, ui.__len__()):
                 print k
+                print ui
                 self.check_response(ui[k], fid[k])
 
         elif isinstance(ui, dict) and isinstance(fid, dict):
@@ -149,4 +157,3 @@ class demo:
 if __name__ == '__main__':
     demo = demo()
     demo.main()
-
